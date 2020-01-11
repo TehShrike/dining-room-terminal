@@ -8,6 +8,11 @@
 	</head>
 	<body>
 		<style>
+			html, body {
+				margin: 0;
+				padding: 0;
+			}
+
 			.container {
 				display: flex;
 				flex-direction: row;
@@ -16,6 +21,22 @@
 			iframe {
 				width: 750px;
 				height: 100vh;
+			}
+			.date-time {
+				flex-grow: 1;
+				height: 100vh;
+
+				font-family: sans-serif;
+				font-size: 64px;
+				font-variant-numeric: tabular-nums;
+
+				display: flex;
+				flex-direction: column;
+				justify-content: center;
+				align-items: center;
+			}
+			.date-time > * {
+				padding: 5vh 0;
 			}
 		</style>
 		<div class="container">
@@ -27,14 +48,54 @@
 				name=todoist-josh
 			>
 			</iframe>
-			<iframe
-				src="https://gmail.todoist.com"
-				frameborder="0"
-				sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
-				scrolling=no
-				name=todoist-anna
-			>
-			</iframe>
+			<div class="date-time">
+				<div id=weekday>
+					Flatterday
+				</div>
+				<div id=date>
+					YYYY-MM-DD
+				</div>
+				<div id=time>
+					25:61
+				</div>
+			</div>
 		</div>
+		<script>
+			const weekday = document.getElementById(`weekday`)
+			const date = document.getElementById(`date`)
+			const time = document.getElementById(`time`)
+
+			const weekdayFormatter = new Intl.DateTimeFormat(undefined, {
+				weekday: `long`,
+			})
+			const timeFormatter = new Intl.DateTimeFormat(undefined, {
+				hour12: false,
+				hour: `numeric`,
+				minute: `2-digit`,
+				second: `2-digit`,
+			})
+
+			const pad2 = number => number < 10 ? `0${ number }` : number.toString()
+			const toIsoDate = jsDate => `${ jsDate.getFullYear() }-${ pad2(jsDate.getMonth() + 1) }-${ pad2(jsDate.getDate()) }`
+
+			const update = () => {
+				const now = new Date()
+
+				weekday.innerText = weekdayFormatter.format(now)
+				date.innerText = toIsoDate(now)
+				time.innerText = timeFormatter.format(now)
+			}
+
+			update()
+
+			const msUntilNextMinute = (59 - new Date().getSeconds()) * 1000 + (1000 - (new Date().getMilliseconds()))
+			const fudgeMs = 2000
+			const oneMinuteMs = 60 * 1000
+
+			setTimeout(() => {
+				update()
+				setInterval(update, oneMinuteMs)
+			}, msUntilNextMinute + fudgeMs)
+		</script>
 	</body>
 </html>
