@@ -9,8 +9,13 @@
 	<body>
 		<style>
 			html, body {
+				--primary-text-color: rgba(255, 255, 255, 0.87);
+				--secondary-text-color: rgb(128, 128, 128);
+
 				margin: 0;
 				padding: 0;
+				background-color: rgb(31, 31, 31);
+				color: var(--primary-text-color);
 			}
 
 			.container {
@@ -40,6 +45,9 @@
 			}
 			#time {
 				font-size: 1.5em;
+			}
+			#weekday, #date {
+				color: var(--secondary-text-color);
 			}
 		</style>
 		<div class="container">
