@@ -9,23 +9,21 @@
 	<body>
 		<style>
 			html, body {
-				--primary-text-color: rgba(255, 255, 255, 0.87);
-				--secondary-text-color: rgb(128, 128, 128);
+				--white: rgba(255, 255, 255, 0.87);
+				--gray: rgb(128, 128, 128);
+				--black: rgb(31, 31, 31);
 
 				margin: 0;
 				padding: 0;
-				background-color: rgb(31, 31, 31);
-				color: var(--primary-text-color);
+				background-color: var(--black);
+				color: var(--white);
 			}
 
 			.container {
 				display: flex;
 				flex-direction: row;
 				justify-content: space-between;
-			}
-			iframe {
-				width: 750px;
-				height: 100vh;
+				align-items: center;
 			}
 			.date-time {
 				flex-grow: 1;
@@ -47,18 +45,103 @@
 				font-size: 1.5em;
 			}
 			#weekday, #date {
-				color: var(--secondary-text-color);
+				color: var(--gray);
+			}
+		</style>
+		<style>
+			.clock {
+				padding: 16px;
+			}
+			svg {
+				width: 40vw;
+				height: 40vw;
+			}
+
+			.clock-face {
+				stroke: var(--gray);
+				fill: var(--white);
+			}
+
+			.minor {
+				stroke: var(--gray);
+				stroke-width: 0.5;
+			}
+
+			.major {
+				stroke: var(--gray);
+				stroke-width: 1;
+			}
+			#minute {
+				stroke: var(--black);
 			}
 		</style>
 		<div class="container">
-			<iframe
-				src="https://chrome.todoist.com"
-				frameborder="0"
-				sandbox="allow-forms allow-scripts allow-same-origin allow-popups"
-				scrolling=no
-				name=todoist-josh
-			>
-			</iframe>
+			<div class="clock">
+				<svg viewBox="-50 -50 100 100">
+					<circle class="clock-face" r="48"></circle>
+					<line class="major" y1="35" y2="45" transform="rotate(0)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(6)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(12)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(18)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(24)"></line>
+					<line class="major" y1="35" y2="45" transform="rotate(150)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(36)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(42)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(48)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(54)"></line>
+					<line class="major" y1="35" y2="45" transform="rotate(300)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(66)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(72)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(78)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(84)"></line>
+					<line class="major" y1="35" y2="45" transform="rotate(450)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(96)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(102)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(108)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(114)"></line>
+					<line class="major" y1="35" y2="45" transform="rotate(600)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(126)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(132)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(138)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(144)"></line>
+					<line class="major" y1="35" y2="45" transform="rotate(750)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(156)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(162)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(168)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(174)"></line>
+					<line class="major" y1="35" y2="45" transform="rotate(900)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(186)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(192)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(198)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(204)"></line>
+					<line class="major" y1="35" y2="45" transform="rotate(1050)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(216)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(222)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(228)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(234)"></line>
+					<line class="major" y1="35" y2="45" transform="rotate(1200)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(246)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(252)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(258)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(264)"></line>
+					<line class="major" y1="35" y2="45" transform="rotate(1350)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(276)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(282)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(288)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(294)"></line>
+					<line class="major" y1="35" y2="45" transform="rotate(1500)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(306)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(312)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(318)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(324)"></line>
+					<line class="major" y1="35" y2="45" transform="rotate(1650)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(336)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(342)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(348)"></line>
+					<line class="minor" y1="42" y2="45" transform="rotate(354)"></line>
+					<line id=minute y1="4" y2="-30" transform="rotate(274.7)"></line>
+				</svg>
+			</div>
 			<div class="date-time">
 				<div id=time>
 					25:61
@@ -75,6 +158,7 @@
 			const weekday = document.getElementById(`weekday`)
 			const date = document.getElementById(`date`)
 			const time = document.getElementById(`time`)
+			const minute_line = document.getElementById(`minute`)
 
 			const weekdayFormatter = new Intl.DateTimeFormat(undefined, {
 				weekday: `long`,
@@ -85,6 +169,8 @@
 				minute: `2-digit`,
 			})
 
+			const minute_transform_attribute = document.createAttribute(`transform`)
+
 			const pad2 = number => number < 10 ? `0${ number }` : number.toString()
 			const toIsoDate = jsDate => `${ jsDate.getFullYear() }-${ pad2(jsDate.getMonth() + 1) }-${ pad2(jsDate.getDate()) }`
 
@@ -94,18 +180,14 @@
 				weekday.innerText = weekdayFormatter.format(now)
 				date.innerText = toIsoDate(now)
 				time.innerText = timeFormatter.format(now)
+
+				minute_transform_attribute.value = `rotate(${6 * now.getMinutes() + now.getSeconds() / 10})`
+				minute_line.attributes.setNamedItem(minute_transform_attribute)
+				console.log('set to', minute_transform_attribute.value)
 			}
 
 			update()
-
-			const msUntilNextMinute = (59 - new Date().getSeconds()) * 1000 + (1000 - (new Date().getMilliseconds()))
-			const fudgeMs = 2000
-			const oneMinuteMs = 60 * 1000
-
-			setTimeout(() => {
-				update()
-				setInterval(update, oneMinuteMs)
-			}, msUntilNextMinute + fudgeMs)
+			setInterval(update, 1000)
 		</script>
 	</body>
 </html>
