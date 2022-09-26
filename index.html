@@ -71,7 +71,7 @@
 				stroke: var(--gray);
 				stroke-width: 1;
 			}
-			#minute {
+			#minute, #hour {
 				stroke: var(--black);
 			}
 		</style>
@@ -140,6 +140,7 @@
 					<line class="minor" y1="42" y2="45" transform="rotate(348)"></line>
 					<line class="minor" y1="42" y2="45" transform="rotate(354)"></line>
 					<line id=minute y1="4" y2="-30" transform="rotate(274.7)"></line>
+					<line id=hour y1="2" y2="-20" transform="rotate(220)"></line>
 				</svg>
 			</div>
 			<div class="date-time">
@@ -159,6 +160,7 @@
 			const date = document.getElementById(`date`)
 			const time = document.getElementById(`time`)
 			const minute_line = document.getElementById(`minute`)
+			const hour_line = document.getElementById(`hour`)
 
 			const weekdayFormatter = new Intl.DateTimeFormat(undefined, {
 				weekday: `long`,
@@ -170,6 +172,7 @@
 			})
 
 			const minute_transform_attribute = document.createAttribute(`transform`)
+			const hour_transform_attribute = document.createAttribute(`transform`)
 
 			const pad2 = number => number < 10 ? `0${ number }` : number.toString()
 			const toIsoDate = jsDate => `${ jsDate.getFullYear() }-${ pad2(jsDate.getMonth() + 1) }-${ pad2(jsDate.getDate()) }`
@@ -183,6 +186,9 @@
 
 				minute_transform_attribute.value = `rotate(${6 * now.getMinutes() + now.getSeconds() / 10})`
 				minute_line.attributes.setNamedItem(minute_transform_attribute)
+
+				hour_transform_attribute.value = `rotate(${30 * now.getHours() + now.getMinutes()})`
+				hour_line.attributes.setNamedItem(hour_transform_attribute)
 			}
 
 			update()
