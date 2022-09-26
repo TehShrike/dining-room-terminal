@@ -12,6 +12,8 @@
 				--white: rgba(255, 255, 255, 0.87);
 				--gray: rgb(128, 128, 128);
 				--black: rgb(31, 31, 31);
+				--red: rgb(180,0,0);
+				--green: rgb(48, 180, 0);
 
 				margin: 0;
 				padding: 0;
@@ -71,8 +73,24 @@
 				stroke: var(--gray);
 				stroke-width: 1;
 			}
-			#minute, #hour {
+			#minute_hand, #hour_hand {
 				stroke: var(--black);
+			}
+
+			#hour_hand {
+				stroke: var(--red);
+			}
+
+			#hour {
+				color: var(--red);
+			}
+
+			#minute_hand {
+				stroke: var(--green);
+			}
+
+			#minute {
+				color: var(--green);
 			}
 		</style>
 		<div class="container">
@@ -139,13 +157,13 @@
 					<line class="minor" y1="42" y2="45" transform="rotate(342)"></line>
 					<line class="minor" y1="42" y2="45" transform="rotate(348)"></line>
 					<line class="minor" y1="42" y2="45" transform="rotate(354)"></line>
-					<line id=minute y1="4" y2="-30" transform="rotate(274.7)"></line>
-					<line id=hour y1="2" y2="-20" transform="rotate(220)"></line>
+					<line id=minute_hand y1="4" y2="-30" transform="rotate(274.7)"></line>
+					<line id=hour_hand y1="2" y2="-20" transform="rotate(220)"></line>
 				</svg>
 			</div>
 			<div class="date-time">
 				<div id=time>
-					25:61
+					<span id="hour">25</span>:<span id="minute">61</span>
 				</div>
 				<div id=weekday>
 					Flatterday
@@ -159,8 +177,10 @@
 			const weekday = document.getElementById(`weekday`)
 			const date = document.getElementById(`date`)
 			const time = document.getElementById(`time`)
-			const minute_line = document.getElementById(`minute`)
-			const hour_line = document.getElementById(`hour`)
+			const minute_hand = document.getElementById(`minute_hand`)
+			const hour_hand = document.getElementById(`hour_hand`)
+			const minute = document.getElementById(`minute`)
+			const hour = document.getElementById(`hour`)
 
 			const weekdayFormatter = new Intl.DateTimeFormat(undefined, {
 				weekday: `long`,
@@ -182,13 +202,15 @@
 
 				weekday.innerText = weekdayFormatter.format(now)
 				date.innerText = toIsoDate(now)
-				time.innerText = timeFormatter.format(now)
+				// time.innerText = timeFormatter.format(now)
+				minute.innerText = pad2(now.getMinutes())
+				hour.innerText = pad2(now.getHours())
 
 				minute_transform_attribute.value = `rotate(${6 * now.getMinutes() + now.getSeconds() / 10})`
-				minute_line.attributes.setNamedItem(minute_transform_attribute)
+				minute_hand.attributes.setNamedItem(minute_transform_attribute)
 
 				hour_transform_attribute.value = `rotate(${30 * now.getHours() + now.getMinutes()})`
-				hour_line.attributes.setNamedItem(hour_transform_attribute)
+				hour_hand.attributes.setNamedItem(hour_transform_attribute)
 			}
 
 			update()
