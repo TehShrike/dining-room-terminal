@@ -209,7 +209,7 @@
 				minute_transform_attribute.value = `rotate(${6 * now.getMinutes() + now.getSeconds() / 10})`
 				minute_hand.attributes.setNamedItem(minute_transform_attribute)
 
-				hour_transform_attribute.value = `rotate(${30 * now.getHours() + now.getMinutes()})`
+				hour_transform_attribute.value = `rotate(${30 * now.getHours() + now.getMinutes() / 2})`
 				hour_hand.attributes.setNamedItem(hour_transform_attribute)
 			}
 
