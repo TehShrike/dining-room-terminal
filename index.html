@@ -207,7 +207,7 @@
 				minute: `2-digit`,
 			})
 
-			const get_weekday = ({ year, month, day }) => weekdayFormatter.format(new Date(year, month, day))
+			const get_weekday = ({ year, month, day }) => weekdayFormatter.format(new Date(toIsoDate({ year, month, day })))
 
 			const minute_transform_attribute = document.createAttribute(`transform`)
 			const hour_transform_attribute = document.createAttribute(`transform`)
