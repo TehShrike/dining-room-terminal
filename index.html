@@ -173,7 +173,9 @@
 				</div>
 			</div>
 		</div>
-		<script>
+		<script type=module>
+			import { get_timezone_offset_for_point_in_time } from './get_utc_offset.js'
+
 			const weekday = document.getElementById(`weekday`)
 			const date = document.getElementById(`date`)
 			const time = document.getElementById(`time`)
@@ -181,6 +183,20 @@
 			const hour_hand = document.getElementById(`hour_hand`)
 			const minute = document.getElementById(`minute`)
 			const hour = document.getElementById(`hour`)
+
+			const get_ct_current_offset_ms = () => get_timezone_offset_for_point_in_time(`America/Chicago`, new Date())
+			const get_current_ct_date_time = () => {
+				const date = new Date()
+				date.setHours(date.getHours(), date.getMinutes(), date.getSeconds(), get_ct_current_offset_ms())
+				return {
+					year: date.getUTCFullYear(),
+					month: date.getUTCMonth() + 1,
+					day: date.getUTCDay(),
+					hours: date.getUTCHours(),
+					minutes: date.getUTCMinutes(),
+					seconds: date.getUTCSeconds(),
+				}
+			}
 
 			const weekdayFormatter = new Intl.DateTimeFormat(undefined, {
 				weekday: `long`,
@@ -191,25 +207,27 @@
 				minute: `2-digit`,
 			})
 
+			const get_weekday = ({ year, month, day }) => weekdayFormatter.format(new Date(year, month, day))
+
 			const minute_transform_attribute = document.createAttribute(`transform`)
 			const hour_transform_attribute = document.createAttribute(`transform`)
 
 			const pad2 = number => number < 10 ? `0${ number }` : number.toString()
-			const toIsoDate = jsDate => `${ jsDate.getFullYear() }-${ pad2(jsDate.getMonth() + 1) }-${ pad2(jsDate.getDate()) }`
+			const toIsoDate = ({ year, month, day }) => `${ year }-${ pad2(month) }-${ pad2(day) }`
 
 			const update = () => {
-				const now = new Date()
+				const { year, month, day, hours, minutes, seconds } = get_current_ct_date_time()
 
-				weekday.innerText = weekdayFormatter.format(now)
-				date.innerText = toIsoDate(now)
+				weekday.innerText = get_weekday({ year, month, day })
+				date.innerText = toIsoDate({ year, month, day })
 				// time.innerText = timeFormatter.format(now)
-				minute.innerText = pad2(now.getMinutes())
-				hour.innerText = pad2(now.getHours())
+				minute.innerText = pad2(minutes)
+				hour.innerText = pad2(hours)
 
-				minute_transform_attribute.value = `rotate(${6 * now.getMinutes() + now.getSeconds() / 10})`
+				minute_transform_attribute.value = `rotate(${6 * minutes + seconds / 10})`
 				minute_hand.attributes.setNamedItem(minute_transform_attribute)
 
-				hour_transform_attribute.value = `rotate(${30 * now.getHours() + now.getMinutes() / 2})`
+				hour_transform_attribute.value = `rotate(${30 * hours + minutes / 2})`
 				hour_hand.attributes.setNamedItem(hour_transform_attribute)
 			}
 
