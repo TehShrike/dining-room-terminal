@@ -258,16 +258,20 @@
 				}
 			}
 
-			const weekdayFormatter = new Intl.DateTimeFormat(undefined, {
-				weekday: `long`,
-			})
-			const timeFormatter = new Intl.DateTimeFormat(undefined, {
-				hour12: false,
-				hour: `numeric`,
-				minute: `2-digit`,
-			})
+			const weekdays = [
+				`Sunday`,
+				`Monday`,
+				`Tuesday`,
+				`Wednesday`,
+				`Thursday`,
+				`Friday`,
+				`Saturday`,
+			]
 
-			const get_weekday = ({ year, month, day }) => weekdayFormatter.format(new Date(toIsoDate({ year, month, day })))
+			const get_weekday = ({ year, month, day }) => {
+				const date = new Date(toIsoDate({ year, month, day }) + `T00:00:00Z`)
+				return weekdays[date.getUTCDay()]
+			}
 
 			const minute_transform_attribute = document.createAttribute(`transform`)
 			const hour_transform_attribute = document.createAttribute(`transform`)
