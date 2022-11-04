@@ -354,7 +354,7 @@
 			const update = () => {
 				const { year, month, day, hours, minutes, seconds } = get_current_ct_date_time()
 
-				weekday.innerText = get_weekday({ year, month, day }) + `!`
+				weekday.innerText = get_weekday({ year, month, day })
 				date.innerText = toIsoDate({ year, month, day })
 				// time.innerText = timeFormatter.format(now)
 				minute.innerText = pad2(minutes)
