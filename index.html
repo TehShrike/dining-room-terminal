@@ -290,9 +290,14 @@
 			}
 
 			const update_todos_view = ({ hours, minutes }) => {
+				const todos_element = document.getElementById(`todos`)
 				const active_todos = get_active_todos({ hours, minutes })
 
-				const todos_element = document.getElementById(`todos`)
+				if (!active_todos) {
+					todos_element.innerHTML = ``
+					return
+				}
+
 				todos_element.innerHTML = active_todos.map(({ name, todo }) => `<div class="name">${name}</div><div class="todo_text">${todo}</div>`).join(`\n`)
 			}
 			// /////////////////////// end todos /////////////////////////
