@@ -357,7 +357,7 @@
 				weekday.innerText = get_weekday({ year, month, day })
 				date.innerText = toIsoDate({ year, month, day })
 				// time.innerText = timeFormatter.format(now)
-				minute.innerText = pad2(minutes)
+				minute.innerText = pad2(minutes) + `!`
 				hour.innerText = pad2(hours)
 
 				// minute_transform_attribute.value = `rotate(${6 * minutes + seconds / 10})`
