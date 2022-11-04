@@ -19,6 +19,7 @@
 				padding: 0;
 				background-color: var(--black);
 				color: var(--white);
+				font-family: sans-serif;
 			}
 
 			.container {
@@ -26,12 +27,12 @@
 				flex-direction: row;
 				justify-content: space-between;
 				align-items: center;
+				padding: 1vw;
 			}
 			.date-time {
 				flex-grow: 1;
 				height: 100vh;
 
-				font-family: sans-serif;
 				font-size: 9vw;
 				font-variant-numeric: tabular-nums;
 
@@ -45,55 +46,68 @@
 			}
 			#time {
 				font-size: 18vw;
+				color: var(--white);
 			}
 			#weekday, #date {
 				color: var(--gray);
 			}
 		</style>
-		<style>
-			.clock {
-				padding: 16px;
-			}
-			svg {
-				width: 40vw;
-				height: 40vw;
-			}
 
-			.clock-face {
-				stroke: var(--gray);
-				fill: var(--white);
-			}
-
-			.minor {
-				stroke: var(--gray);
-				stroke-width: 0.5;
-			}
-
-			.major {
-				stroke: var(--gray);
-				stroke-width: 1;
-			}
-			#minute_hand, #hour_hand {
-				stroke: var(--black);
-			}
-
-			#hour_hand {
-				stroke: var(--red);
-			}
-
-			#hour {
-				color: var(--red);
-			}
-
-			#minute_hand {
-				stroke: var(--green);
-			}
-
-			#minute {
-				color: var(--green);
-			}
-		</style>
+		<style type="text/css"></style>
 		<div class="container">
+			<div id="todos">
+				<div class="name">Jethro</div><div class="todo_text">Be totally cool</div>
+				<div class="name">Ada</div><div class="todo_text">Be totally awesome</div>
+			</div>
+			<style>
+				#todos {
+					display: grid;
+					grid-template-columns: 13vw 37vw;
+					font-size: 4vw;
+					row-gap: 1vw;
+				}
+				.todo_text {
+					color: var(--gray);
+				}
+			</style>
+
+
+<!-- 		<style>
+				.clock {
+					padding: 16px;
+				}
+				svg {
+					width: 40vw;
+					height: 40vw;
+				}
+
+				.clock-face {
+					stroke: var(--gray);
+					fill: var(--white);
+				}
+
+				.minor {
+					stroke: var(--gray);
+					stroke-width: 0.5;
+				}
+
+				.major {
+					stroke: var(--gray);
+					stroke-width: 1;
+				}
+				#minute_hand, #hour_hand {
+					stroke: var(--black);
+				}
+
+				#hour_hand {
+					stroke: var(--red);
+				}
+
+				#minute_hand {
+					stroke: var(--green);
+				}
+
+			</style>
 			<div class="clock">
 				<svg viewBox="-50 -50 100 100">
 					<circle class="clock-face" r="48"></circle>
@@ -160,7 +174,7 @@
 					<line id=minute_hand y1="4" y2="-30" transform="rotate(274.7)"></line>
 					<line id=hour_hand y1="2" y2="-20" transform="rotate(220)"></line>
 				</svg>
-			</div>
+			</div> -->
 			<div class="date-time">
 				<div id=time>
 					<span id="hour">25</span>:<span id="minute">61</span>
@@ -234,13 +248,66 @@
 			}
 
 
+			// /////////////////////// todos /////////////////////////
+			// from https://docs.google.com/spreadsheets/d/1ay912t78uHIoqYH7Y0GpRrjp99dyeYeIm5KhrhSqMDU/edit#gid=0
+			const data = `Time Slot	All	Josh	Anna	Jethro	Ada	Helen
+16:00			Make supper
+16:30			Make supper
+17:00			Put supper on table
+17:30	Eat supper
+18:00	Eat supper faster
+18:30		Clean kitchen				Get ready for bed
+19:00	Read together
+19:30					Get ready for bed	Go to bed
+20:00					Go to bed
+20:30				Get ready for bed
+21:00				Go to bed		`
+
+			const time_rows = data.split(`\n`).map(line => line.split(`\t`))
+			const name_row = time_rows.shift()
+			name_row.shift()
+
+			const todos_by_time = time_rows.map(([ time, ...todo_columns ]) => {
+				const active_todos = todo_columns.map((todo, index) => ({
+					todo,
+					name: name_row[index],
+	})).filter(({ todo }) => todo)
+
+				return {
+					time,
+					active_todos,
+	}
+			})
+
+			const time_to_todos = new Map(
+				todos_by_time.map(({ time, active_todos }) => [ time, active_todos ]),
+)
+
+			const get_active_todos = ({ hours, minutes }) => {
+				const normalized_minutes = minutes < 30 ? 0 : 30
+				const normalized_time = `${pad2(hours)}:${pad2(normalized_minutes)}`
+				return time_to_todos.get(normalized_time)
+			}
+
+			const update_todos_view = ({ hours, minutes }) => {
+				const active_todos = get_active_todos({ hours, minutes })
+
+				const todos_element = document.getElementById(`todos`)
+				todos_element.innerHTML = active_todos.map(({ name, todo }) => `<div class="name">${name}</div><div class="todo_text">${todo}</div>`).join(`\n`)
+			}
+			// /////////////////////// end todos /////////////////////////
+
+
+
+
+
 			// etc
 
 			const weekday = document.getElementById(`weekday`)
 			const date = document.getElementById(`date`)
 			const time = document.getElementById(`time`)
-			const minute_hand = document.getElementById(`minute_hand`)
-			const hour_hand = document.getElementById(`hour_hand`)
+			// const minute_hand = document.getElementById(`minute_hand`)
+			// const hour_hand = document.getElementById(`hour_hand`)
 			const minute = document.getElementById(`minute`)
 			const hour = document.getElementById(`hour`)
 
@@ -273,8 +340,8 @@
 				return weekdays[date.getUTCDay()]
 			}
 
-			const minute_transform_attribute = document.createAttribute(`transform`)
-			const hour_transform_attribute = document.createAttribute(`transform`)
+			// const minute_transform_attribute = document.createAttribute(`transform`)
+			// const hour_transform_attribute = document.createAttribute(`transform`)
 
 			const pad2 = number => number < 10 ? `0${ number }` : number.toString()
 			const toIsoDate = ({ year, month, day }) => `${ year }-${ pad2(month) }-${ pad2(day) }`
@@ -288,14 +355,19 @@
 				minute.innerText = pad2(minutes)
 				hour.innerText = pad2(hours)
 
-				minute_transform_attribute.value = `rotate(${6 * minutes + seconds / 10})`
-				minute_hand.attributes.setNamedItem(minute_transform_attribute)
+				// minute_transform_attribute.value = `rotate(${6 * minutes + seconds / 10})`
+				// minute_hand.attributes.setNamedItem(minute_transform_attribute)
 
-				hour_transform_attribute.value = `rotate(${30 * hours + minutes / 2})`
-				hour_hand.attributes.setNamedItem(hour_transform_attribute)
+				// hour_transform_attribute.value = `rotate(${30 * hours + minutes / 2})`
+				// hour_hand.attributes.setNamedItem(hour_transform_attribute)
+
+				if (minutes === 30 && seconds < 3) {
+					update_todos_view({ hours, minutes })
+				}
 			}
 
 			update()
+			update_todos_view(get_current_ct_date_time())
 			setInterval(update, 1000)
 		</script>
 	</body>
