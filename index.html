@@ -366,7 +366,7 @@
 				// hour_transform_attribute.value = `rotate(${30 * hours + minutes / 2})`
 				// hour_hand.attributes.setNamedItem(hour_transform_attribute)
 
-				if (minutes === 30 && seconds < 3) {
+				if ((minutes === 0 || minutes === 30) && seconds < 3) {
 					update_todos_view({ hours, minutes })
 				}
 			}
