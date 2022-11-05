@@ -24,25 +24,28 @@
 
 			.container {
 				display: flex;
-				flex-direction: row;
+				flex-direction: column;
 				justify-content: space-between;
 				align-items: center;
 				padding: 0 1vw;
 			}
 			.date-time {
 				flex-grow: 1;
-				height: 100vh;
+				height: 50vh;
+				width: 100vw;
 
 				font-size: 7vw;
 				font-variant-numeric: tabular-nums;
 
 				display: flex;
-				flex-direction: column;
-				justify-content: center;
+				flex-direction: row;
+				justify-content: space-evenly;
 				align-items: center;
 			}
-			.date-time > * {
-				padding: 3vh 0;
+			.date-and-weekday {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
 			}
 			#time {
 				font-size: 16vw;
@@ -55,6 +58,21 @@
 
 		<style type="text/css"></style>
 		<div class="container">
+			<div class="date-time">
+				<div id=time>
+					<span id="hour">25</span>:<span id="minute">61</span>
+				</div>
+				<div class=date-and-weekday>
+					<div id=weekday>
+						Flatterday
+					</div>
+					<div id=date>
+						YYYY-MM-DD
+					</div>
+				</div>
+			</div>
+
+
 			<div id="todos">
 				<div class="name">Jethro</div><div class="todo_text">Be totally cool</div>
 				<div class="name">Ada</div><div class="todo_text">Be totally awesome</div>
@@ -62,9 +80,9 @@
 			<style>
 				#todos {
 					display: grid;
-					grid-template-columns: 13vw 37vw;
-					font-size: 4vw;
-					row-gap: 1vw;
+					grid-template-columns: 26vw 53vw;
+					font-size: 6vw;
+					row-gap: 2vw;
 				}
 				.todo_text {
 					color: var(--gray);
@@ -175,17 +193,6 @@
 					<line id=hour_hand y1="2" y2="-20" transform="rotate(220)"></line>
 				</svg>
 			</div> -->
-			<div class="date-time">
-				<div id=time>
-					<span id="hour">25</span>:<span id="minute">61</span>
-				</div>
-				<div id=weekday>
-					Flatterday
-				</div>
-				<div id=date>
-					YYYY-MM-DD
-				</div>
-			</div>
 		</div>
 		<script>
 			// tz_tokenize_date.mjs
