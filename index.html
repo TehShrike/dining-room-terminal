@@ -258,6 +258,22 @@
 			// /////////////////////// todos /////////////////////////
 			// from https://docs.google.com/spreadsheets/d/1ay912t78uHIoqYH7Y0GpRrjp99dyeYeIm5KhrhSqMDU/edit#gid=0
 			const data = `Time Slot	All	Josh	Anna	Jethro	Ada	Helen
+08:00
+08:30
+09:00		Go to office (weekday)
+09:30
+10:00
+10:30
+11:00
+11:30			Get ready for lunch
+12:00
+12:30
+13:00
+13:30
+14:00
+14:30
+15:00
+15:30
 16:00			Make supper
 16:30			Make supper
 17:00			Put supper on table
@@ -274,10 +290,28 @@
 			const name_row = time_rows.shift()
 			name_row.shift()
 
+			const get_todo = todo_str => {
+				const match = todo_str.match(/^(.+) \(weekday\)$/)
+
+				if (!match) {
+					return {
+						todo: todo_str,
+						weekday_only: false,
+		}
+				}
+
+				const [ , todo ] = match
+
+				return {
+					todo,
+					weekday_only: true,
+	}
+			}
+
 			const todos_by_time = time_rows.map(([ time, ...todo_columns ]) => {
 				const active_todos = todo_columns.map((todo, index) => ({
-					todo,
-					name: name_row[index],
+			...get_todo(todo),
+			name: name_row[index],
 	})).filter(({ todo }) => todo)
 
 				return {
@@ -296,7 +330,7 @@
 				return time_to_todos.get(normalized_time)
 			}
 
-			const update_todos_view = ({ hours, minutes }) => {
+			const update_todos_view = ({ hours, minutes, is_weekday }) => {
 				const todos_element = document.getElementById(`todos`)
 				const active_todos = get_active_todos({ hours, minutes })
 
@@ -305,7 +339,9 @@
 					return
 				}
 
-				todos_element.innerHTML = active_todos.map(({ name, todo }) => `<div class="name">${name}</div><div class="todo_text">${todo}</div>`).join(`\n`)
+				todos_element.innerHTML = active_todos
+					.filter(({ weekday_only }) => is_weekday || !weekday_only)
+					.map(({ name, todo }) => `<div class="name">${name}</div><div class="todo_text">${todo}</div>`).join(`\n`)
 			}
 			// /////////////////////// end todos /////////////////////////
 
@@ -347,9 +383,11 @@
 				`Saturday`,
 			]
 
-			const get_weekday = ({ year, month, day }) => {
+			const get_weekday = ({ year, month, day }) => weekdays[get_day_of_week({ year, month, day })]
+
+			const get_day_of_week = ({ year, month, day }) => {
 				const date = new Date(toIsoDate({ year, month, day }) + `T00:00:00Z`)
-				return weekdays[date.getUTCDay()]
+				return date.getUTCDay()
 			}
 
 			// const minute_transform_attribute = document.createAttribute(`transform`)
@@ -374,12 +412,19 @@
 				// hour_hand.attributes.setNamedItem(hour_transform_attribute)
 
 				if ((minutes === 0 || minutes === 30) && seconds < 3) {
-					update_todos_view({ hours, minutes })
+					const day_of_week = get_day_of_week({ year, month, day })
+					const is_weekday = day_of_week >= 1 && day_of_week <= 5
+					update_todos_view({ hours, minutes, is_weekday })
 				}
 			}
 
 			update()
 			update_todos_view(get_current_ct_date_time())
+			// update_todos_view({
+			// 	hours: 10,
+			// 	minutes: 12,
+			// 	is_weekday: true
+			// })
 			setInterval(update, 1000)
 		</script>
 	</body>
