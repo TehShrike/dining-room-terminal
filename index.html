@@ -9,16 +9,20 @@
 	</head>
 	<body>
 		<style>
-			html, body {
+			html {
 				--white: rgba(255, 255, 255, 0.87);
 				--gray: rgb(128, 128, 128);
 				--black: rgb(31, 31, 31);
 				--red: rgb(180,0,0);
 				--green: rgb(48, 180, 0);
+			}
+
+			body {
+				--background-color: var(--black);
 
 				margin: 0;
 				padding: 0;
-				background-color: var(--black);
+				background-color: var(--background-color);
 				color: var(--white);
 				font-family: sans-serif;
 			}
@@ -331,7 +335,10 @@
 				return time_to_todos.get(normalized_time)
 			}
 
-			const update_todos_view = ({ hours, minutes, is_weekday }) => {
+			const update_todos_view = ({ year, month, day, hours, minutes }) => {
+				const day_of_week = get_day_of_week({ year, month, day })
+				const is_weekday = day_of_week >= 1 && day_of_week <= 5
+
 				const todos_element = document.getElementById(`todos`)
 				const active_todos = get_active_todos({ hours, minutes })
 
@@ -340,9 +347,13 @@
 					return
 				}
 
-				todos_element.innerHTML = active_todos
+				const todays_active_todos = active_todos
 					.filter(({ weekday_only }) => is_weekday || !weekday_only)
+
+				todos_element.innerHTML = todays_active_todos
 					.map(({ name, todo }) => `<div class="name">${name}</div><div class="todo_text">${todo}</div>`).join(`\n`)
+
+				return todays_active_todos.length
 			}
 			// /////////////////////// end todos /////////////////////////
 
@@ -351,6 +362,24 @@
 
 
 			// etc
+
+			const flash_screen = () => {
+				const body = document.querySelector(`body`)
+				let is_red = false
+				let count = 0
+				const interval = setInterval(() => {
+					body.style = is_red
+						? ``
+						: `--background-color: var(--red);`
+					count++
+					is_red = !is_red
+					console.log(`just set`, body.style)
+
+					if (count > 5 && !is_red) {
+						clearInterval(interval)
+					}
+				}, 300)
+			}
 
 			const weekday = document.getElementById(`weekday`)
 			const date = document.getElementById(`date`)
@@ -397,6 +426,8 @@
 			const pad2 = number => number < 10 ? `0${ number }` : number.toString()
 			const toIsoDate = ({ year, month, day }) => `${ year }-${ pad2(month) }-${ pad2(day) }`
 
+			let last_minutes = null
+
 			const update = () => {
 				const { year, month, day, hours, minutes, seconds } = get_current_ct_date_time()
 
@@ -412,10 +443,14 @@
 				// hour_transform_attribute.value = `rotate(${30 * hours + minutes / 2})`
 				// hour_hand.attributes.setNamedItem(hour_transform_attribute)
 
-				if ((minutes === 0 || minutes === 30) && seconds < 3) {
-					const day_of_week = get_day_of_week({ year, month, day })
-					const is_weekday = day_of_week >= 1 && day_of_week <= 5
-					update_todos_view({ hours, minutes, is_weekday })
+				if (last_minutes !== minutes) {
+					if (last_minutes !== null && (minutes === 0 || minutes === 30)) {
+						const currently_active_todos = update_todos_view({ year, month, day, hours, minutes })
+						if (currently_active_todos > 0) {
+							flash_screen()
+						}
+					}
+					last_minutes = minutes
 				}
 			}
 
@@ -427,6 +462,7 @@
 			// 	is_weekday: true
 			// })
 			setInterval(update, 1000)
+			// flash_screen()
 		</script>
 	</body>
 </html>
