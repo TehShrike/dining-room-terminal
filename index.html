@@ -210,15 +210,15 @@
 14:00			Supper prep
 14:30
 15:00
-15:30			Pump
+15:30
 16:00
-16:30
+16:30			Pump
 17:00
-17:30			Pump
+17:30
 18:00	Supper	Clean kitchen	Supper
 18:30
 19:00				Finish water		Get ready for bed
-19:30					Get ready for bed	Go to bed
+19:30			Pump		Get ready for bed	Go to bed
 20:00				Get ready for bed	Go to bed
 20:30			Go to bed	Go to bed
 21:00
@@ -424,7 +424,7 @@
 			const pad2 = number => number < 10 ? `0${ number }` : number.toString()
 			const toIsoDate = ({ year, month, day }) => `${ year }-${ pad2(month) }-${ pad2(day) }`
 			const toStringTime = ({hours,minutes}) => `${pad2(hours)}:${pad2(minutes)}`
-			const toIsoDateTime = ({year,month,day,hours,minutes}) => `${toIsoDate({year,month,day})}T${toStringTime({hours,minutes})}:00`
+			const toIsoDateTime = ({year,month,day,hours,minutes,seconds}) => `${toIsoDate({year,month,day})}T${toStringTime({hours,minutes})}:${pad2(seconds || 0)}`
 			const get_seconds_apart = (object_a, object_b) => {
 				const iso_a = toIsoDateTime(object_a)
 				const iso_b = toIsoDateTime(object_b)
