@@ -15,6 +15,7 @@
 				--black: rgb(31, 31, 31);
 				--red: rgb(180,0,0);
 				--green: rgb(48, 180, 0);
+				--orange: rgb(255, 191, 0);
 			}
 
 			body {
@@ -58,9 +59,40 @@
 			#weekday, #date {
 				color: var(--gray);
 			}
+
+			.hourglass {
+				position: absolute;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 5vh;
+				display: flex;
+				justify-content: flex-end;
+			}
+			#sand {
+				height: 100%;
+				background-color: var(--orange);
+			}
+			#hourglass_text {
+				position: absolute;
+				top: calc(5vh + .25em);
+				left: 0;
+				width: 100%;
+				font-size: 3vh;
+				text-align: center;
+				color: var(--gray);
+			}
 		</style>
 
 		<style type="text/css"></style>
+
+		<div class="hourglass">
+			<div id="sand"></div>
+		</div>
+		<div id="hourglass_text">
+			Time until Anna's <span class=>next thing</span>
+		</div>
+
 		<div class="container">
 			<div class="date-time">
 				<div id=time>
@@ -78,8 +110,8 @@
 
 
 			<div id="todos">
-				<div class="name">Jethro</div><div class="todo_text">Be totally cool</div>
-				<div class="name">Ada</div><div class="todo_text">Be totally awesome</div>
+				<div>Jethro</div><div class="todo_text">Be totally cool</div>
+				<div>Ada</div><div class="todo_text">Be totally awesome</div>
 			</div>
 			<style>
 				#todos {
@@ -92,113 +124,10 @@
 					color: var(--gray);
 				}
 			</style>
-
-
-<!-- 		<style>
-				.clock {
-					padding: 16px;
-				}
-				svg {
-					width: 40vw;
-					height: 40vw;
-				}
-
-				.clock-face {
-					stroke: var(--gray);
-					fill: var(--white);
-				}
-
-				.minor {
-					stroke: var(--gray);
-					stroke-width: 0.5;
-				}
-
-				.major {
-					stroke: var(--gray);
-					stroke-width: 1;
-				}
-				#minute_hand, #hour_hand {
-					stroke: var(--black);
-				}
-
-				#hour_hand {
-					stroke: var(--red);
-				}
-
-				#minute_hand {
-					stroke: var(--green);
-				}
-
-			</style>
-			<div class="clock">
-				<svg viewBox="-50 -50 100 100">
-					<circle class="clock-face" r="48"></circle>
-					<line class="major" y1="35" y2="45" transform="rotate(0)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(6)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(12)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(18)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(24)"></line>
-					<line class="major" y1="35" y2="45" transform="rotate(150)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(36)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(42)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(48)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(54)"></line>
-					<line class="major" y1="35" y2="45" transform="rotate(300)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(66)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(72)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(78)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(84)"></line>
-					<line class="major" y1="35" y2="45" transform="rotate(450)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(96)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(102)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(108)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(114)"></line>
-					<line class="major" y1="35" y2="45" transform="rotate(600)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(126)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(132)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(138)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(144)"></line>
-					<line class="major" y1="35" y2="45" transform="rotate(750)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(156)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(162)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(168)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(174)"></line>
-					<line class="major" y1="35" y2="45" transform="rotate(900)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(186)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(192)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(198)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(204)"></line>
-					<line class="major" y1="35" y2="45" transform="rotate(1050)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(216)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(222)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(228)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(234)"></line>
-					<line class="major" y1="35" y2="45" transform="rotate(1200)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(246)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(252)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(258)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(264)"></line>
-					<line class="major" y1="35" y2="45" transform="rotate(1350)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(276)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(282)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(288)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(294)"></line>
-					<line class="major" y1="35" y2="45" transform="rotate(1500)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(306)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(312)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(318)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(324)"></line>
-					<line class="major" y1="35" y2="45" transform="rotate(1650)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(336)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(342)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(348)"></line>
-					<line class="minor" y1="42" y2="45" transform="rotate(354)"></line>
-					<line id=minute_hand y1="4" y2="-30" transform="rotate(274.7)"></line>
-					<line id=hour_hand y1="2" y2="-20" transform="rotate(220)"></line>
-				</svg>
-			</div> -->
 		</div>
 		<script>
+			const HALF_HOURS_IN_HOURGLASS = 4
+			const SECONDS_IN_HOURGLASS = HALF_HOURS_IN_HOURGLASS * 30 * 60
 			// tz_tokenize_date.mjs
 			const tz_tokenize_date = (date, timeZone) => partsOffset(getDateTimeFormat(timeZone), date)
 
@@ -257,7 +186,11 @@
 
 				return asUTC - date_object.getTime()
 			}
-
+			// 10:30 pump
+			// 14:00 Dinner prep
+			// 13:30 pump
+			// 16:30 pump
+			// 19:30 pump
 
 			// /////////////////////// todos /////////////////////////
 			// from https://docs.google.com/spreadsheets/d/1ay912t78uHIoqYH7Y0GpRrjp99dyeYeIm5KhrhSqMDU/edit#gid=0
@@ -265,26 +198,26 @@
 08:00
 08:30
 09:00		Go to office (weekday)
-09:30
-10:00
-10:30
-11:00				You are cool (weekday)
-11:30			Get ready for lunch
+09:30	Prayer
+10:00				School	School
+10:30			Pump	School	School
+11:00				School	School
+11:30			Get ready for lunch	School	School
 12:00
 12:30
-13:00					You are great (weekday)
-13:30
-14:00
+13:00
+13:30			Pump
+14:00			Supper prep
 14:30
 15:00
-15:30
-16:00			Make supper
-16:30			Make supper
-17:00			Put supper on table
-17:30	Eat supper
-18:00		Clean kitchen	Overnight oats, tea			Get ready for bed
-18:30	Read together
-19:00				Finish water
+15:30			Pump
+16:00
+16:30
+17:00
+17:30			Pump
+18:00	Supper	Clean kitchen	Supper
+18:30
+19:00				Finish water		Get ready for bed
 19:30					Get ready for bed	Go to bed
 20:00				Get ready for bed	Go to bed
 20:30			Go to bed	Go to bed
@@ -301,8 +234,8 @@
 				if (!match) {
 					return {
 						todo: todo_str,
-						weekday_only: false,
-		}
+						weekday_only: false
+					}
 				}
 
 				const [ , todo ] = match
@@ -310,51 +243,117 @@
 				return {
 					todo,
 					weekday_only: true,
-	}
+				}
 			}
 
 			const todos_by_time = time_rows.map(([ time, ...todo_columns ]) => {
 				const active_todos = todo_columns.map((todo, index) => ({
-			...get_todo(todo),
-			name: name_row[index],
-	})).filter(({ todo }) => todo)
+					...get_todo(todo),
+					name: name_row[index],
+				})).filter(({ todo }) => todo)
 
 				return {
 					time,
 					active_todos,
-	}
+				}
 			})
 
 			const time_to_todos = new Map(
 				todos_by_time.map(({ time, active_todos }) => [ time, active_todos ]),
-)
+			)
 
-			const get_active_todos = ({ hours, minutes }) => {
-				const normalized_minutes = minutes < 30 ? 0 : 30
-				const normalized_time = `${pad2(hours)}:${pad2(normalized_minutes)}`
-				return time_to_todos.get(normalized_time)
+			const add_minutes_to_time = ({hours, minutes}, minutes_to_add) => {
+				minutes += minutes_to_add
+
+				while (minutes >= 60) {
+					minutes -= 60
+					hours++
+				}
+
+				hours = hours % 24
+
+				return {hours, minutes}
 			}
 
-			const update_todos_view = ({ year, month, day, hours, minutes }) => {
+			const normalize_minutes = ({hours,minutes}) => ({
+				hours,
+				minutes: minutes < 30 ? 0 : 30
+			})
+
+			const get_next_todo_for_anna = (date_time_object, half_hours_to_look_ahead) => {
+				const time_objects = new Array(half_hours_to_look_ahead).fill(null).map((_, i) => add_minutes_to_time(date_time_object, (i + 1) * 30))
+
+				const upcoming_anna_todos = time_objects.flatMap(time => {
+					const future_datetime = {
+						...date_time_object,
+						...normalize_minutes(time)
+					}
+
+					const todos = get_todos(future_datetime)
+
+					return todos.filter(({name}) => name === 'Anna').map(todo => ({
+						...todo,
+						date_time: future_datetime
+					}))
+				})
+
+				return upcoming_anna_todos.shift()
+			}
+
+			let annas_next_todo = null
+
+			const get_todos = ({ year, month, day, hours, minutes }) => {
 				const day_of_week = get_day_of_week({ year, month, day })
 				const is_weekday = day_of_week >= 1 && day_of_week <= 5
-
-				const todos_element = document.getElementById(`todos`)
-				const active_todos = get_active_todos({ hours, minutes })
+				const active_todos = time_to_todos.get(toStringTime(normalize_minutes({hours,minutes})))
 
 				if (!active_todos) {
+					return []
+				}
+
+				return active_todos
+					.filter(({ weekday_only }) => is_weekday || !weekday_only)
+			}
+
+			const update_todos_view = (date_time_object) => {
+				const todos_element = document.getElementById(`todos`)
+
+				const todays_active_todos = get_todos(date_time_object)
+
+				if (todays_active_todos.length === 0) {
 					todos_element.innerHTML = ``
 					return
 				}
 
-				const todays_active_todos = active_todos
-					.filter(({ weekday_only }) => is_weekday || !weekday_only)
-
 				todos_element.innerHTML = todays_active_todos
-					.map(({ name, todo }) => `<div class="name">${name}</div><div class="todo_text">${todo}</div>`).join(`\n`)
+					.map(({ name, todo }) => `<div>${name}</div><div class="todo_text">${todo}</div>`).join(`\n`)
 
 				return todays_active_todos.length
 			}
+
+			const set_hourglass_sand_to_ratio = (ratio) => {
+				document.getElementById('sand').style.width = `${ratio * 100}%`
+			}
+
+			const update_annas_hourglass = current_time => {
+				const hourglass_text_element = document.getElementById('hourglass_text')
+				if (!annas_next_todo) {
+					set_hourglass_sand_to_ratio(0)
+					update_if_different(hourglass_text_element, '')
+
+					return
+				}
+
+				const seconds_left = get_seconds_apart(current_time, annas_next_todo.date_time)
+
+				if (seconds_left <= SECONDS_IN_HOURGLASS) {
+					const ratio_left = seconds_left / SECONDS_IN_HOURGLASS
+					set_hourglass_sand_to_ratio(ratio_left)
+
+					update_if_different(hourglass_text_element, annas_next_todo.todo)
+				}
+			}
+
 			// /////////////////////// end todos /////////////////////////
 
 
@@ -373,7 +372,6 @@
 						: `--background-color: var(--red);`
 					count++
 					is_red = !is_red
-					console.log(`just set`, body.style)
 
 					if (count > 5 && !is_red) {
 						clearInterval(interval)
@@ -425,17 +423,37 @@
 
 			const pad2 = number => number < 10 ? `0${ number }` : number.toString()
 			const toIsoDate = ({ year, month, day }) => `${ year }-${ pad2(month) }-${ pad2(day) }`
+			const toStringTime = ({hours,minutes}) => `${pad2(hours)}:${pad2(minutes)}`
+			const toIsoDateTime = ({year,month,day,hours,minutes}) => `${toIsoDate({year,month,day})}T${toStringTime({hours,minutes})}:00`
+			const get_seconds_apart = (object_a, object_b) => {
+				const iso_a = toIsoDateTime(object_a)
+				const iso_b = toIsoDateTime(object_b)
+
+				const date_a = new Date(iso_a)
+				const date_b = new Date(iso_b)
+
+				const first_date = iso_a > iso_b ? date_b : date_a
+				const last_date = iso_a > iso_b ? date_a : date_b
+
+				const ms_diff = last_date.valueOf() - first_date.valueOf()
+
+				return Math.round(ms_diff / 1000)
+			}
 
 			let last_minutes = null
 
-			const update = () => {
-				const { year, month, day, hours, minutes, seconds } = get_current_ct_date_time()
+			const update_if_different = (element, str) => {
+				if (element.innerText !== str) {
+					element.innerText = str
+				}
+			}
 
-				weekday.innerText = get_weekday({ year, month, day })
-				date.innerText = toIsoDate({ year, month, day })
-				// time.innerText = timeFormatter.format(now)
-				minute.innerText = pad2(minutes)
-				hour.innerText = pad2(hours)
+			const update = ({ year, month, day, hours, minutes, seconds }) => {
+				update_if_different(weekday, get_weekday({ year, month, day }))
+				update_if_different(date, toIsoDate({ year, month, day }))
+				// update_if_different(time, timeFormatter.format(now))
+				update_if_different(minute, pad2(minutes))
+				update_if_different(hour, pad2(hours))
 
 				// minute_transform_attribute.value = `rotate(${6 * minutes + seconds / 10})`
 				// minute_hand.attributes.setNamedItem(minute_transform_attribute)
@@ -444,24 +462,31 @@
 				// hour_hand.attributes.setNamedItem(hour_transform_attribute)
 
 				if (last_minutes !== minutes) {
-					if (last_minutes !== null && (minutes === 0 || minutes === 30)) {
+					if (last_minutes === null || minutes === 0 || minutes === 30) {
+						annas_next_todo = get_next_todo_for_anna({ year, month, day, hours, minutes }, HALF_HOURS_IN_HOURGLASS)
 						const currently_active_todos = update_todos_view({ year, month, day, hours, minutes })
-						if (currently_active_todos > 0) {
+
+						if (last_minutes !== null && currently_active_todos > 0) {
 							flash_screen()
 						}
 					}
+
 					last_minutes = minutes
 				}
+
+				update_annas_hourglass({ year, month, day, hours, minutes, seconds })
 			}
 
-			update()
-			update_todos_view(get_current_ct_date_time())
-			// update_todos_view({
-			// 	hours: 10,
-			// 	minutes: 12,
-			// 	is_weekday: true
+			update(get_current_ct_date_time())
+			// update({
+			// 	year: 2024,
+			// 	month: 4,
+			// 	day: 25,
+			// 	hours: 8,
+			// 	minutes: 47,
+			// 	seconds: 0
 			// })
-			setInterval(update, 1000)
+			setInterval(() => update(get_current_ct_date_time()), 1000)
 			// flash_screen()
 		</script>
 	</body>
