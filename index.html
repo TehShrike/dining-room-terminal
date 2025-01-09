@@ -142,6 +142,16 @@
 				second: 5,
 			}
 
+			const day_name_to_day_of_week = {
+				sunday: 0,
+				monday: 1,
+				tuesday: 2,
+				wednesday: 3,
+				thursday: 4,
+				friday: 5,
+				saturday: 6,
+			}
+
 			function partsOffset(dtf, date) {
 				const formatted = dtf.formatToParts(date)
 				const filled = []
@@ -201,15 +211,15 @@
 08:30
 09:00		Go to office (weekday)
 09:30	Prayer
-10:00				School	School
-10:30				School	School
-11:00				School	School
-11:30			Get ready for lunch	School	School
+10:00
+10:30
+11:00
+11:30			Get ready for lunch
 12:00
 12:30
-13:00
-13:30
-14:00			Supper prep
+13:00				Take out the trash (tuesday)
+13:30				Bring back the trash (wednesday)
+14:00
 14:30
 15:00
 15:30
@@ -217,32 +227,34 @@
 16:30
 17:00
 17:30
-18:00	Supper	Clean kitchen	Supper
+18:00	Supper		Supper
 18:30
-19:00				Finish water		Get ready for bed
-19:30					Get ready for bed	Go to bed
-20:00				Get ready for bed	Go to bed
-20:30			Go to bed	Go to bed		`
+19:00						Get ready for bed
+19:30						Go to bed
+20:00					Get ready for bed
+20:30			Go to bed	Get ready for bed	Go to bed
+21:00				Go to bed
+21:30						`
 
 			const time_rows = data.split(`\n`).map(line => line.split(`\t`))
 			const name_row = time_rows.shift()
 			name_row.shift()
 
 			const get_todo = todo_str => {
-				const match = todo_str.match(/^(.+) \(weekday\)$/)
+				const match = todo_str.match(/^(.+) \((\w+)\)$/)
 
 				if (!match) {
 					return {
 						todo: todo_str,
-						weekday_only: false
+						qualifier: null
 					}
 				}
 
-				const [ , todo ] = match
+				const [ , todo, qualifier ] = match
 
 				return {
 					todo,
-					weekday_only: true,
+					qualifier,
 				}
 			}
 
@@ -312,7 +324,22 @@
 				}
 
 				return active_todos
-					.filter(({ weekday_only }) => is_weekday || !weekday_only)
+					.filter(({ qualifier }) => {
+						if (!qualifier) {
+							return true
+						}
+
+						console.log('qualifier is', qualifier)
+
+						if (qualifier === 'weekday') {
+							return is_weekday
+						}
+
+						console.log('target day of week is', day_name_to_day_of_week[qualifier])
+						console.log('the current day of week is', day_of_week)
+
+						return day_name_to_day_of_week[qualifier] === day_of_week
+					})
 			}
 
 			const update_todos_view = (date_time_object) => {
@@ -479,11 +506,11 @@
 
 			update(get_current_ct_date_time())
 			// update({
-			// 	year: 2024,
-			// 	month: 4,
-			// 	day: 25,
-			// 	hours: 8,
-			// 	minutes: 47,
+			// 	year: 2025,
+			// 	month: 1,
+			// 	day: 8,
+			// 	hours: 18,
+			// 	minutes: 27,
 			// 	seconds: 0
 			// })
 			setInterval(() => update(get_current_ct_date_time()), 1000)
