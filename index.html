@@ -207,14 +207,16 @@
 			// /////////////////////// todos /////////////////////////
 			// from https://docs.google.com/spreadsheets/d/1ay912t78uHIoqYH7Y0GpRrjp99dyeYeIm5KhrhSqMDU/edit#gid=0
 			const data = `Time Slot	All	Josh	Anna	Jethro	Ada	Helen
-08:00
-08:30
-09:00		Go to office (weekday)
-09:30	Prayer
+07:00	Make breakfast (weekday)
+07:30	Make breakfast (weekday)
+08:00	Last chance to eat breakfast (weekday)
+08:30	Last chance to eat breakfast (weekday)
+09:00	Clean up breakfast (weekday)	Go to office (weekday)
+09:30	Prayer (weekday)
 10:00
 10:30
 11:00
-11:30			Get ready for lunch
+11:30			Get ready for lunch (weekday)
 12:00
 12:30
 13:00				Take out the trash (tuesday)
@@ -231,9 +233,9 @@
 18:30
 19:00						Get ready for bed
 19:30						Go to bed
-20:00					Get ready for bed
-20:30			Go to bed	Get ready for bed	Go to bed
-21:00				Go to bed
+20:00
+20:30			Go to bed	Get ready for bed	Get ready for bed
+21:00				Go to bed	Go to bed
 21:30						`
 
 			const time_rows = data.split(`\n`).map(line => line.split(`\t`))
