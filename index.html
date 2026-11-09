@@ -206,22 +206,22 @@
 
 			// /////////////////////// todos /////////////////////////
 			// from https://docs.google.com/spreadsheets/d/1ay912t78uHIoqYH7Y0GpRrjp99dyeYeIm5KhrhSqMDU/edit#gid=0
-			const data = `Time Slot	All	Josh	Anna	Jethro	Ada	Helen
-07:00	Make breakfast (weekday)
-07:30	Make breakfast (weekday)
-08:00	Last chance to eat breakfast (weekday)
-08:30	Last chance to eat breakfast (weekday)
-09:00	Clean up breakfast (weekday)	Go to office (weekday)
+			const data = `Time Slot	All	Josh	Anna	Jethro	Ada	Helen	Gary	Saul
+07:00	Make breakfast (weekday)	Work on treebzns (weekday)
+07:30	Make breakfast (weekday)	Work on treebzns (weekday)
+08:00	Last chance to eat breakfast (weekday)	Work on treebzns (weekday)
+08:30	Last chance to eat breakfast (weekday)	Work on treebzns (weekday)
+09:00	Clean up breakfast (weekday)			Read Bible with Dad (monday)	Read Bible with Dad (tuesday)	Read Bible with Dad (wednesday)	Read Bible with Dad (thursday)	Read Bible with Dad (friday)
 09:30	Prayer (weekday)
-10:00
+10:00		Work for Substantial (weekday)
 10:30
 11:00
 11:30			Get ready for lunch (weekday)
 12:00
 12:30
-13:00				Take out the trash (tuesday)
+13:00
 13:30				Bring back the trash (wednesday)
-14:00
+14:00				Take out the trash (tuesday)
 14:30
 15:00
 15:30
@@ -229,13 +229,14 @@
 16:30
 17:00
 17:30
-18:00	Supper		Supper
-18:30
-19:00						Get ready for bed
-19:30						Go to bed
-20:00
-20:30			Go to bed	Get ready for bed	Get ready for bed
-21:00				Go to bed	Go to bed
+18:00
+18:30	Supper
+19:00				Ready pajamas	Ready pajamas	Ready pajamas	Get ready for bed	Get ready for bed
+19:30							Go to bed	Go to bed
+20:00				Prepare for bed	Prepare for bed	Prepare for bed
+20:30				Go to bed	Go to bed	Go to bed
+21:00
+21:30
 21:30						`
 
 			const time_rows = data.split(`\n`).map(line => line.split(`\t`))
